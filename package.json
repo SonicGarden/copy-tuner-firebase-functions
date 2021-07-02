@@ -2,7 +2,7 @@
   "name": "copy-tuner-firebase-functions",
   "version": "1.0.0",
   "description": "CopyTuner Helpers for Firebase Cloud Functions",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.release.json",
     "build:release": "npm install --production && npm install --no-save typescript && tsc -p tsconfig.release.json",
