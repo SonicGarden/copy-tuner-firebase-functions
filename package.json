@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/SonicGarden/copy-tuner-firebase-functions/issues"
   },
-  "homepage": "https://github.com/SonicGarden/copy-tuner-firebase-functions#readme"
+  "homepage": "https://github.com/SonicGarden/copy-tuner-firebase-functions#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "firebase-functions": "^3.14.1"
+  },
+  "devDependencies": {}
 }
