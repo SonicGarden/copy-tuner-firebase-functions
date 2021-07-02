@@ -1,0 +1,19 @@
+{
+  "name": "copy-tuner-firebase-functions",
+  "version": "1.0.0",
+  "description": "CopyTuner Helpers for Firebase Cloud Functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/SonicGarden/copy-tuner-firebase-functions.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SonicGarden/copy-tuner-firebase-functions/issues"
+  },
+  "homepage": "https://github.com/SonicGarden/copy-tuner-firebase-functions#readme"
+}
