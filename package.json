@@ -21,6 +21,7 @@
   "homepage": "https://github.com/SonicGarden/copy-tuner-firebase-functions#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "firebase-admin": "^9.10.0",
     "firebase-functions": "^3.14.1"
   },
   "devDependencies": {
