@@ -3,18 +3,20 @@
   "version": "1.0.0",
   "description": "CopyTuner Helpers for Firebase Cloud Functions",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.release.json",
     "build:release": "npm install --production && npm install --no-save typescript && tsc -p tsconfig.release.json",
     "build:pack": "rm -rf lib && npm install && tsc -p tsconfig.release.json && npm pack",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/SonicGarden/copy-tuner-firebase-functions.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/SonicGarden/copy-tuner-firebase-functions/issues"
   },
