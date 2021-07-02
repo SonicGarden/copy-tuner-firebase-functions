@@ -1,17 +1,8 @@
 {
   "compilerOptions": {
     "resolveJsonModule": true,
-    "sourceMap": true,
-    "declaration": true,
-    "lib": ["es2018"],
-    "module": "commonjs",
-    "noImplicitAny": false,
-    "noUnusedLocals": true,
-    "outDir": "lib",
-    "stripInternal": true,
-    "target": "es2018",
-    "typeRoots": ["./node_modules/@types"]
+    "sourceMap": true
   },
-  "include": ["**/*.ts"],
-  "files": ["./src/index.ts"]
+  "extends": "./tsconfig.release.json",
+  "include": ["**/*.ts"]
 }
