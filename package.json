@@ -4,6 +4,9 @@
   "description": "CopyTuner Helpers for Firebase Cloud Functions",
   "main": "index.js",
   "scripts": {
+    "build": "tsc -p tsconfig.release.json",
+    "build:release": "npm install --production && npm install --no-save typescript && tsc -p tsconfig.release.json",
+    "build:pack": "rm -rf lib && npm install && tsc -p tsconfig.release.json && npm pack",
     "test": "jest"
   },
   "repository": {
