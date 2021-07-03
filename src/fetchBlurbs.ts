@@ -6,7 +6,7 @@ type Data = {
   environment: string;
 };
 
-export const fetchCopyTunerBlurbs = async (data: Data): fetchBlurbsReturn => {
+export const fetchBlurbs = async (data: Data): fetchBlurbsReturn => {
   try {
     const { locale, environment } = data;
     const {
@@ -23,3 +23,7 @@ export const fetchCopyTunerBlurbs = async (data: Data): fetchBlurbsReturn => {
     return {};
   }
 };
+
+export const fetchCopyTunerBlurbs = functions.region('asia-northeast1').https.onCall(async (data) => {
+  return await fetchBlurbs(data);
+});

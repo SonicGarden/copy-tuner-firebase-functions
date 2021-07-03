@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 
-export const getCopyTunerConfig = async (): Promise<{ [key: string]: string }> => {
+export const getConfig = async (): Promise<{ [key: string]: string }> => {
   try {
     const { copy_tuner: copyTuner } = functions.config();
 
@@ -10,3 +10,7 @@ export const getCopyTunerConfig = async (): Promise<{ [key: string]: string }> =
     return {};
   }
 };
+
+export const getCopyTunerConfig = functions.region('asia-northeast1').https.onCall(async () => {
+  return await getConfig();
+});
