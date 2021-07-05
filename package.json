@@ -5,10 +5,16 @@
   "main": "lib/index.js",
   "exports": {
     ".": "./lib/index.js",
-    "./core": "./lib/core.js",
-    "./package.json": "./package.json"
+    "./core": "./lib/core.js"
   },
   "types": "lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "core": [
+        "lib/core.d.ts"
+      ]
+    }
+  },
   "files": [
     "lib"
   ],
