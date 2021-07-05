@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "exports": {
     ".": "./lib/index.js",
-    "./core": "./lib/core.js"
+    "./core": "./lib/core.js",
+    "./package.json": "./package.json"
   },
   "types": "lib/index.d.ts",
   "files": [
