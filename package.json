@@ -4,6 +4,7 @@
   "description": "CopyTuner Helpers for Firebase Cloud Functions",
   "main": "lib/index.js",
   "exports": {
+    ".": "./lib/index.js",
     "./core": "./lib/core.js"
   },
   "types": "lib/index.d.ts",
