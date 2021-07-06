@@ -7,21 +7,16 @@ type Data = {
 };
 
 export const fetchBlurbs = async (data: Data): fetchBlurbsReturn => {
-  try {
-    const { locale, environment } = data;
-    const {
-      copy_tuner: { s3_host: host, api_key: apiKey },
-    } = functions.config();
+  const { locale, environment } = data;
+  const {
+    copy_tuner: { s3_host: host, api_key: apiKey },
+  } = functions.config();
 
-    const blurbs =
-      environment === 'production'
-        ? await fetchPublishedBlurbs({ host, apiKey, locale })
-        : await fetchDraftBlurbs({ host, apiKey, locale });
-    return blurbs;
-  } catch (error) {
-    console.error(error);
-    return {};
-  }
+  const blurbs =
+    environment === 'production'
+      ? await fetchPublishedBlurbs({ host, apiKey, locale })
+      : await fetchDraftBlurbs({ host, apiKey, locale });
+  return blurbs;
 };
 
 export const fetchCopyTunerBlurbs = functions.region('asia-northeast1').https.onCall(async (data) => {
