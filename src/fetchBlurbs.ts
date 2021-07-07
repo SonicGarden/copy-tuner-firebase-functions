@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
-import { fetchPublishedBlurbs, fetchDraftBlurbs } from 'src/lib/copyTuner';
-import { CopyTunerBlurbs } from 'src/types';
+import { fetchPublishedBlurbs, fetchDraftBlurbs } from './lib/copyTuner';
+import { CopyTunerBlurbs } from './types';
 
 export const fetchBlurbs = async (data: { locale: string; environment: string }): Promise<CopyTunerBlurbs> => {
   const { locale, environment } = data;

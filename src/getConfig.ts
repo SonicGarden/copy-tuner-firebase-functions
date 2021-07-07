@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions';
-import { CopyTunerConfig } from 'src/types';
+import { CopyTunerConfig } from './types';
 
 export const getConfig = async (): Promise<CopyTunerConfig> => {
   const { copy_tuner: copyTuner } = functions.config();

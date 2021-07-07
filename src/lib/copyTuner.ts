@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CopyTunerBlurbs } from 'src/types';
+import { CopyTunerBlurbs } from '../types';
 
 const blurbsByLocale = ({ data, locale }) => {
   // eslint-disable-next-line no-useless-escape
