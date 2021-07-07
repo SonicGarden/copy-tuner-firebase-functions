@@ -1,2 +1,2 @@
-export { fetchCopyTunerBlurbs } from './fetchBlurbs';
-export { getCopyTunerConfig } from './getConfig';
+export { fetchCopyTunerBlurbs } from 'src/fetchBlurbs';
+export { getCopyTunerConfig } from 'src/getConfig';
