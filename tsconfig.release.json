@@ -11,5 +11,5 @@
     "typeRoots": ["./node_modules/@types"],
     "baseUrl": ".",
   },
-  "files": ["./src/index.ts", "./src/core.ts"]
+  "files": ["./src/index.ts", "./src/core.ts", "src/types.ts"]
 }

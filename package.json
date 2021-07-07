@@ -11,7 +11,8 @@
   "typesVersions": {
     "*": {
       "core": [
-        "lib/core.d.ts"
+        "lib/core.d.ts",
+        "lib/types.d.ts"
       ]
     }
   },
