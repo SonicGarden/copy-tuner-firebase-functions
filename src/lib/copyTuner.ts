@@ -10,12 +10,16 @@ const blurbsByLocale = ({ data, locale }) => {
     .reduce((acc, [key, value]) => ({ ...acc, [key.replace(`${locale}.`, '')]: value }), {});
 };
 
-const blurbs = ({ data }) => {
+const blurbsAll = ({ data }) => {
   return Object.entries(data).reduce((acc, [key, value]) => {
     const [locale, ...keys] = key.split('.');
     acc[locale] = { ...acc[locale], [keys.join('.')]: value };
     return acc;
   }, {});
+};
+
+const blurbs = ({ data, locale }) => {
+  return locale ? blurbsByLocale({ data, locale }) : blurbsAll({ data });
 };
 
 type fetchBlurbsOptions = {
@@ -28,12 +32,12 @@ export const fetchPublishedBlurbs = async ({ host, apiKey, locale }: fetchBlurbs
   const url = `${host}/api/v2/projects/${apiKey}/published_blurbs.json`;
   const { data } = await axios.get(url);
 
-  return locale ? blurbsByLocale({ data, locale }) : blurbs({ data });
+  return blurbs({ data, locale });
 };
 
 export const fetchDraftBlurbs = async ({ host, apiKey, locale }: fetchBlurbsOptions): Promise<CopyTunerBlurbs> => {
   const url = `${host}/api/v2/projects/${apiKey}/draft_blurbs.json`;
   const { data } = await axios.get(url);
 
-  return locale ? blurbsByLocale({ data, locale }) : blurbs({ data });
+  return blurbs({ data, locale });
 };
