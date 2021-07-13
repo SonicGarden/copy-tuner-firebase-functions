@@ -10,17 +10,23 @@ yarn add @sonicgarden/copy-tuner-firebase-functions
 
 # Usage
 
-## When deploying to region asia-northeast1
+## Set environment configuration
 
-In functions/index.js
+```
+firebase functions:config:set copy_tuner.host="xxx" copy_tuner.s3_host="xxx" copy_tuner.api_key="xxx"
+```
+
+## Create functions
+
+In functions/index.js (When deploying to region asia-northeast1)
 
 ```
 export * from '@sonicgarden/copy-tuner-firebase-functions';
 ```
 
-## When custom deploying
+or
 
-In functions/index.js
+In functions/index.js (When custom deploying)
 
 ```
 export const fetchCopyTunerBlurbs = functions.https.onCall(async (data) => {
@@ -32,4 +38,12 @@ export const getCopyTunerConfig = functions.https.onCall(async () => {
   const { getCopyTunerConfig } = await import('@sonicgarden/copy-tuner-firebase-functions/core');
   return await getCopyTunerConfig();
 });
+```
+
+## Fetch blurbs
+
+```
+const fetchCopyTunerBlurbs = firebase.functions().httpsCallable('fetchCopyTunerBlurbs');
+
+fetchCopyTunerBlurbs({ locale: 'ja', environment: 'production' }).then(({ data }) => console.log(data));
 ```
