@@ -45,5 +45,5 @@ export const getCopyTunerConfig = functions.https.onCall(async () => {
 ```
 const fetchCopyTunerBlurbs = firebase.functions().httpsCallable('fetchCopyTunerBlurbs');
 
-fetchCopyTunerBlurbs({ locale: 'ja', environment: 'production' }).then(({ data }) => console.log(data));
+fetchCopyTunerBlurbs({ environment: 'production', locale: 'ja' }).then(({ data }) => console.log(data));
 ```
