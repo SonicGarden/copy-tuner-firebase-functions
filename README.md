@@ -15,7 +15,7 @@ yarn add @sonicgarden/copy-tuner-firebase-functions
 In functions/index.js
 
 ```
-export * from 'copy-tuner-firebase-functions';
+export * from '@sonicgarden/copy-tuner-firebase-functions';
 ```
 
 ## When custom deploying
@@ -24,12 +24,12 @@ In functions/index.js
 
 ```
 export const fetchCopyTunerBlurbs = functions.https.onCall(async (data) => {
-  const { fetchCopyTunerBlurbs } = await import('copy-tuner-firebase-functions/core');
+  const { fetchCopyTunerBlurbs } = await import('@sonicgarden/copy-tuner-firebase-functions/core');
   return await fetchCopyTunerBlurbs(data);
 });
 
 export const getCopyTunerConfig = functions.https.onCall(async () => {
-  const { getCopyTunerConfig } = await import('copy-tuner-firebase-functions/core');
+  const { getCopyTunerConfig } = await import('@sonicgarden/copy-tuner-firebase-functions/core');
   return await getCopyTunerConfig();
 });
 ```
