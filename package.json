@@ -1,5 +1,5 @@
 {
-  "name": "copy-tuner-firebase-functions",
+  "name": "@sonicgarden/copy-tuner-firebase-functions",
   "version": "1.0.0",
   "description": "CopyTuner Helpers for Firebase Cloud Functions",
   "main": "lib/index.js",
