@@ -8,7 +8,7 @@ CopyTuner Helpers for Firebase Cloud Functions
 yarn add @sonicgarden/copy-tuner-firebase-functions
 ```
 
-# How to use
+# Usage
 
 Set environment configuration:
 
