@@ -8,17 +8,17 @@ CopyTuner Helpers for Firebase Cloud Functions
 yarn add @sonicgarden/copy-tuner-firebase-functions
 ```
 
-# Usage
+# How to use
 
-## Set environment configuration
+Set environment configuration:
 
 ```
 firebase functions:config:set copy_tuner.host="xxx" copy_tuner.s3_host="xxx" copy_tuner.api_key="xxx"
 ```
 
-## Create functions
+Create functions in functions/index.js:
 
-In functions/index.js (When deploying to region asia-northeast1)
+When deploying to region asia-northeast1
 
 ```
 export * from '@sonicgarden/copy-tuner-firebase-functions';
@@ -26,7 +26,7 @@ export * from '@sonicgarden/copy-tuner-firebase-functions';
 
 or
 
-In functions/index.js (When custom deploying)
+When custom deploying
 
 ```
 export const fetchCopyTunerBlurbs = functions.https.onCall(async (data) => {
@@ -40,7 +40,7 @@ export const getCopyTunerConfig = functions.https.onCall(async () => {
 });
 ```
 
-## Fetch blurbs
+Fetch blurbs:
 
 ```
 const fetchCopyTunerBlurbs = firebase.functions().httpsCallable('fetchCopyTunerBlurbs');
