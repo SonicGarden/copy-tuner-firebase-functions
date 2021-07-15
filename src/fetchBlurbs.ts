@@ -3,18 +3,17 @@ import { fetchPublishedBlurbs, fetchDraftBlurbs } from './lib/copyTuner';
 import { CopyTunerBlurbs, CopyTunerBlurbsByLocale } from './types';
 
 export const fetchBlurbs = async (data: {
-  environment: string;
   locale?: string;
 }): Promise<{ blurbs: CopyTunerBlurbs | CopyTunerBlurbsByLocale }> => {
-  const { locale, environment } = data;
+  const { locale } = data;
   const {
-    copy_tuner: { s3_host: host, api_key: apiKey },
+    copy_tuner: { s3_host: host, api_key: apiKey, environment },
   } = functions.config();
-
   const blurbs =
-    environment === 'production'
-      ? await fetchPublishedBlurbs({ host, apiKey, locale })
-      : await fetchDraftBlurbs({ host, apiKey, locale });
+    environment === 'staging'
+      ? await fetchDraftBlurbs({ host, apiKey, locale })
+      : await fetchPublishedBlurbs({ host, apiKey, locale });
+
   return { blurbs };
 };
 
