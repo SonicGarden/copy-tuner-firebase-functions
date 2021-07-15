@@ -5,7 +5,7 @@ import { CopyTunerBlurbs, CopyTunerBlurbsByLocale } from './types';
 export const fetchBlurbs = async (data: {
   environment: string;
   locale?: string;
-}): Promise<CopyTunerBlurbs | CopyTunerBlurbsByLocale> => {
+}): Promise<{ blurbs: CopyTunerBlurbs | CopyTunerBlurbsByLocale }> => {
   const { locale, environment } = data;
   const {
     copy_tuner: { s3_host: host, api_key: apiKey },
@@ -15,7 +15,7 @@ export const fetchBlurbs = async (data: {
     environment === 'production'
       ? await fetchPublishedBlurbs({ host, apiKey, locale })
       : await fetchDraftBlurbs({ host, apiKey, locale });
-  return blurbs;
+  return { blurbs };
 };
 
 export const fetchCopyTunerBlurbs = functions.region('asia-northeast1').https.onCall(async (data) => {
