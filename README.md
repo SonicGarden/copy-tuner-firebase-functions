@@ -12,8 +12,21 @@ yarn add @sonicgarden/copy-tuner-firebase-functions
 
 Set environment configuration:
 
+- staging
+
 ```
-firebase functions:config:set copy_tuner.host="xxx" copy_tuner.s3_host="xxx" copy_tuner.api_key="xxx"
+firebase functions:config:set copy_tuner.environment="staging"
+firebase functions:config:set copy_tuner.host="xxx"
+firebase functions:config:set copy_tuner.s3_host="xxx"
+firebase functions:config:set copy_tuner.api_key="xxx"
+```
+
+- production　(Don't set copy_tuner.host)
+
+```
+firebase functions:config:set copy_tuner.environment="production"
+firebase functions:config:set copy_tuner.s3_host="xxx"
+firebase functions:config:set copy_tuner.api_key="xxx"
 ```
 
 Create functions in functions/index.js:
@@ -34,9 +47,9 @@ export const fetchCopyTunerBlurbs = functions.https.onCall(async (data) => {
   return await fetchCopyTunerBlurbs(data);
 });
 
-export const getCopyTunerConfig = functions.https.onCall(async () => {
-  const { getCopyTunerConfig } = await import('@sonicgarden/copy-tuner-firebase-functions/core');
-  return await getCopyTunerConfig();
+export const getCopyTunerUrl = functions.https.onCall(async () => {
+  const { getCopyTunerUrl } = await import('@sonicgarden/copy-tuner-firebase-functions/core');
+  return await getCopyTunerUrl();
 });
 ```
 
@@ -45,5 +58,5 @@ Fetch blurbs:
 ```
 const fetchCopyTunerBlurbs = firebase.functions().httpsCallable('fetchCopyTunerBlurbs');
 
-fetchCopyTunerBlurbs({ environment: 'production', locale: 'ja' }).then(({ data }) => console.log(data));
+fetchCopyTunerBlurbs({ locale: 'ja' }).then(({ data: { blurbs } }) => console.log(blurbs));
 ```
