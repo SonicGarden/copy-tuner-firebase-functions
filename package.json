@@ -24,7 +24,7 @@
     "build:release": "npm install --production && npm install --no-save typescript && tsc -p tsconfig.release.json",
     "build:pack": "rm -rf lib && npm install && tsc -p tsconfig.release.json && npm pack",
     "test": "jest",
-    "prepare": "npm run build"
+    "prepare": "tsc -p tsconfig.release.json"
   },
   "repository": {
     "type": "git",
