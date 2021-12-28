@@ -1,3 +1,5 @@
+import { cacheCopyTunerBlurbs as _cacheCopyTunerBlurbs } from './cacheBlurbs';
+
 export { fetchCopyTunerBlurbs } from './fetchBlurbs';
 export { getCopyTunerUrl } from './getUrl';
-export { cacheCopyTunerBlurbs } from './cacheBlurbs';
+export const cacheCopyTunerBlurbs = _cacheCopyTunerBlurbs({});
