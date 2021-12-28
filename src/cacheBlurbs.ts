@@ -25,13 +25,13 @@ export const cacheCopyTunerBlurbs = ({
   schedule = '0 0 * * *',
   timeZone = 'Asia/Tokyo',
   bucketName = `${JSON.parse(process.env.FIREBASE_CONFIG).storageBucket}`,
-  locale = 'ja',
+  locales = ['ja'],
 }: {
   region?: string;
   schedule?: string;
   timeZone?: string;
   bucketName?: string;
-  locale?: string;
+  locales?: string[];
 }): functions.CloudFunction<unknown> => {
   return functions
     .region(region)
@@ -39,7 +39,7 @@ export const cacheCopyTunerBlurbs = ({
     .timeZone(timeZone)
     .onRun(async () => {
       try {
-        await cacheBlurbs({ locale, bucketName });
+        await Promise.all(locales.map((locale) => cacheBlurbs({ locale, bucketName })));
         console.info('copy-tuner blurbs cached successfully.');
       } catch (error) {
         console.error(error);
