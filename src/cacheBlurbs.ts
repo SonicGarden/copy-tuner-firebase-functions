@@ -38,6 +38,11 @@ export const cacheCopyTunerBlurbs = ({
     .pubsub.schedule(schedule)
     .timeZone(timeZone)
     .onRun(async () => {
-      await cacheBlurbs({ locale, bucketName });
+      try {
+        await cacheBlurbs({ locale, bucketName });
+        console.info('copy-tuner blurbs cached successfully.');
+      } catch (error) {
+        console.error(error);
+      }
     });
 };
