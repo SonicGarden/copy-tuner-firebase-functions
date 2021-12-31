@@ -21,21 +21,30 @@ export const cacheBlurbs = async (data: {
   return true;
 };
 
-export const cacheCopyTunerBlurbs = ({
-  region = 'asia-northeast1',
-  schedule = '0 0 * * *',
-  timeZone = 'Asia/Tokyo',
-  locales = ['ja'],
-  cacheBucketName = `${JSON.parse(process.env.FIREBASE_CONFIG).storageBucket}`,
-  cacheFolder = 'copy-tuner',
-}: {
-  region?: string;
-  schedule?: string;
-  timeZone?: string;
-  locales?: string[];
-  cacheBucketName?: string;
-  cacheFolder?: string;
-}): functions.CloudFunction<unknown> => {
+const defaultOptions = {
+  region: 'asia-northeast1',
+  schedule: '0 0 * * *',
+  timeZone: 'Asia/Tokyo',
+  locales: ['ja'],
+  cacheBucketName: `${JSON.parse(process.env.FIREBASE_CONFIG).storageBucket}`,
+  cacheFolder: 'copy-tuner',
+};
+
+export const cacheCopyTunerBlurbs = (
+  options: {
+    region?: string;
+    schedule?: string;
+    timeZone?: string;
+    locales?: string[];
+    cacheBucketName?: string;
+    cacheFolder?: string;
+  } = defaultOptions
+): functions.CloudFunction<unknown> => {
+  const { region, schedule, timeZone, locales, cacheBucketName, cacheFolder } = {
+    ...defaultOptions,
+    ...options,
+  };
+
   return functions
     .region(region)
     .pubsub.schedule(schedule)

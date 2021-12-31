@@ -9,11 +9,17 @@ export const getUrl = async (): Promise<{ url: string }> => {
   return { url };
 };
 
-export const getCopyTunerUrl = ({
-  region = 'asia-northeast1',
-}: {
-  region?: string;
-}): functions.CloudFunction<unknown> => {
+const defaultOptions = {
+  region: 'asia-northeast1',
+};
+
+export const getCopyTunerUrl = (
+  options: {
+    region?: string;
+  } = defaultOptions
+): functions.CloudFunction<unknown> => {
+  const { region } = { ...defaultOptions, ...options };
+
   return functions.region(region).https.onCall(async () => {
     return await getUrl();
   });
