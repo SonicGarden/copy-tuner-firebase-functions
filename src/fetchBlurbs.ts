@@ -17,6 +17,12 @@ export const fetchBlurbs = async (data: {
   return { blurbs };
 };
 
-export const fetchCopyTunerBlurbs = functions.region('asia-northeast1').https.onCall(async (data) => {
-  return await fetchBlurbs(data);
-});
+export const fetchCopyTunerBlurbs = ({
+  region = 'asia-northeast1',
+}: {
+  region?: string;
+}): functions.CloudFunction<unknown> => {
+  return functions.region(region).https.onCall(async (data) => {
+    return await fetchBlurbs(data);
+  });
+};
