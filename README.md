@@ -31,32 +31,32 @@ firebase functions:config:set copy_tuner.api_key="xxx"
 
 Create functions in functions/index.js:
 
-When deploying to region asia-northeast1
+When fetching directly from the s3 server
 
 ```
-export * from '@sonicgarden/copy-tuner-firebase-functions';
+import * as copyTuner from '@sonicgarden/copy-tuner-firebase-functions';
+
+export getCopyTunerUrl = copyTuner.getCopyTunerUrl({
+  region: 'asia-northeast1'
+});
+export fetchCopyTunerBlurbs = copyTuner.fetchCopyTunerBlurbs({
+  region: 'asia-northeast1'
+});
 ```
 
 or
 
-When custom deploying
+When fetching from the cloud storage cache
 
 ```
-export const fetchCopyTunerBlurbs = functions.https.onCall(async (data) => {
-  const { fetchCopyTunerBlurbs } = await import('@sonicgarden/copy-tuner-firebase-functions/core');
-  return await fetchCopyTunerBlurbs(data);
+import * as copyTuner from '@sonicgarden/copy-tuner-firebase-functions';
+
+export getCopyTunerUrl = copyTuner.getCopyTunerUrl({
+  region: 'asia-northeast1'
 });
-
-export const getCopyTunerUrl = functions.https.onCall(async () => {
-  const { getCopyTunerUrl } = await import('@sonicgarden/copy-tuner-firebase-functions/core');
-  return await getCopyTunerUrl();
+export cacheCopyTunerBlurbs = copyTuner.cacheopyTunerBlurbs({
+  region: 'asia-northeast1',
+  schedule: '0 0 * * *',
+  timeZone: 'Asia/Tokyo'
 });
-```
-
-Fetch blurbs:
-
-```
-const fetchCopyTunerBlurbs = firebase.functions().httpsCallable('fetchCopyTunerBlurbs');
-
-fetchCopyTunerBlurbs({ locale: 'ja' }).then(({ data: { blurbs } }) => console.log(blurbs));
 ```
