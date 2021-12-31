@@ -6,16 +6,17 @@ import { fetchBlurbs } from './fetchBlurbs';
 
 export const cacheBlurbs = async (data: {
   locale: string;
-  bucketName: string;
+  cacheBucketName: string;
+  cacheFolder: string;
 }): Promise<boolean> => {
-  const { locale, bucketName } = data;
+  const { locale, cacheBucketName, cacheFolder } = data;
   const cacheFile = `${tmpdir()}/${locale}.json`;
   const { blurbs } = await fetchBlurbs({ locale });
   const storage = new Storage();
 
   await writeFile(cacheFile, JSON.stringify(blurbs));
-  await storage.bucket(bucketName).upload(cacheFile, {
-    destination: `copy-tuner/${locale}.json`,
+  await storage.bucket(cacheBucketName).upload(cacheFile, {
+    destination: `${cacheFolder}/${locale}`,
   });
   return true;
 };
@@ -24,14 +25,16 @@ export const cacheCopyTunerBlurbs = ({
   region = 'asia-northeast1',
   schedule = '0 0 * * *',
   timeZone = 'Asia/Tokyo',
-  bucketName = `${JSON.parse(process.env.FIREBASE_CONFIG).storageBucket}`,
   locales = ['ja'],
+  cacheBucketName = `${JSON.parse(process.env.FIREBASE_CONFIG).storageBucket}`,
+  cacheFolder = 'copy-tuner',
 }: {
   region?: string;
   schedule?: string;
   timeZone?: string;
-  bucketName?: string;
   locales?: string[];
+  cacheBucketName?: string;
+  cacheFolder?: string;
 }): functions.CloudFunction<unknown> => {
   return functions
     .region(region)
@@ -39,7 +42,9 @@ export const cacheCopyTunerBlurbs = ({
     .timeZone(timeZone)
     .onRun(async () => {
       try {
-        await Promise.all(locales.map((locale) => cacheBlurbs({ locale, bucketName })));
+        await Promise.all(
+          locales.map((locale) => cacheBlurbs({ locale, cacheBucketName, cacheFolder }))
+        );
         console.info('copy-tuner blurbs cached successfully.');
       } catch (error) {
         console.error(error);
