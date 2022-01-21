@@ -9,18 +9,9 @@ export const getUrl = async (): Promise<{ url: string }> => {
   return { url };
 };
 
-const defaultOptions = {
-  region: 'asia-northeast1',
-};
+// TODO: 設定ファイルで変更できるようにする
+const region = 'asia-northeast1';
 
-export const getCopyTunerUrl = (
-  options: {
-    region?: string;
-  } = defaultOptions
-): functions.CloudFunction<unknown> => {
-  const { region } = { ...defaultOptions, ...options };
-
-  return functions.region(region).https.onCall(async () => {
-    return await getUrl();
-  });
-};
+export const getCopyTunerUrl = functions.region(region).https.onCall(async () => {
+  return await getUrl();
+});

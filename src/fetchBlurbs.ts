@@ -17,18 +17,9 @@ export const fetchBlurbs = async (data: {
   return { blurbs };
 };
 
-const defaultOptions = {
-  region: 'asia-northeast1',
-};
+// TODO: 設定ファイルで変更できるようにする
+const region = 'asia-northeast1';
 
-export const fetchCopyTunerBlurbs = (
-  options: {
-    region?: string;
-  } = defaultOptions
-): functions.CloudFunction<unknown> => {
-  const { region } = { ...defaultOptions, ...options };
-
-  return functions.region(region).https.onCall(async (data) => {
-    return await fetchBlurbs(data);
-  });
-};
+export const fetchCopyTunerBlurbs = functions.region(region).https.onCall(async (data) => {
+  return await fetchBlurbs(data);
+});
