@@ -1,7 +1,8 @@
 import * as functions from 'firebase-functions';
 import { Storage } from '@google-cloud/storage';
+import type { CopyTunerBlurbsByLocale } from './types';
 
-export const getCacheUrl = async ({
+export const fetchCacheBlurbs = async ({
   locale,
   cacheBucketName,
   cacheFolder,
@@ -9,7 +10,7 @@ export const getCacheUrl = async ({
   locale: string;
   cacheBucketName;
   cacheFolder;
-}): Promise<{ url: string }> => {
+}): Promise<{ blurbs: CopyTunerBlurbsByLocale }> => {
   const {
     copy_tuner: { environment },
   } = functions.config();
@@ -18,15 +19,10 @@ export const getCacheUrl = async ({
     environment === 'staging'
       ? `${cacheFolder}/draft/${locale}`
       : `${cacheFolder}/publish/${locale}`;
-  const [url] = await storage
-    .bucket(cacheBucketName)
-    .file(fileName)
-    .getSignedUrl({
-      action: 'read',
-      expires: Date.now() + 1000 * 60 * 60 * 24,
-    });
+  const contents = await storage.bucket(cacheBucketName).file(fileName).download();
+  const blurbs = JSON.parse(contents.toString());
 
-  return { url };
+  return { blurbs };
 };
 
 // TODO: 設定ファイルで変更できるようにする
@@ -34,8 +30,8 @@ const region = 'asia-northeast1';
 const cacheBucketName = `${JSON.parse(process.env.FIREBASE_CONFIG).storageBucket}`;
 const cacheFolder = 'copy-tuner';
 
-export const getCopyTunerCacheUrl = functions
+export const fetchCopyTunerCacheBlurbs = functions
   .region(region)
   .https.onCall(async ({ locale }: { locale: string }) => {
-    return await getCacheUrl({ locale, cacheBucketName, cacheFolder });
+    return await fetchCacheBlurbs({ locale, cacheBucketName, cacheFolder });
   });
