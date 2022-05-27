@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 import { fetchPublishedBlurbs, fetchDraftBlurbs } from './lib/copyTuner';
-import { CopyTunerBlurbs, CopyTunerBlurbsByLocale } from './types';
+import type { CopyTunerBlurbs, CopyTunerBlurbsByLocale } from './types';
 
 export const fetchBlurbs = async (data: {
   locale?: string;
@@ -17,6 +17,9 @@ export const fetchBlurbs = async (data: {
   return { blurbs };
 };
 
-export const fetchCopyTunerBlurbs = functions.region('asia-northeast1').https.onCall(async (data) => {
+// TODO: 設定ファイルで変更できるようにする
+const region = 'asia-northeast1';
+
+export const fetchCopyTunerBlurbs = functions.region(region).https.onCall(async (data) => {
   return await fetchBlurbs(data);
 });

@@ -9,6 +9,9 @@ export const getUrl = async (): Promise<{ url: string }> => {
   return { url };
 };
 
-export const getCopyTunerUrl = functions.region('asia-northeast1').https.onCall(async () => {
+// TODO: 設定ファイルで変更できるようにする
+const region = 'asia-northeast1';
+
+export const getCopyTunerUrl = functions.region(region).https.onCall(async () => {
   return await getUrl();
 });
