@@ -38,7 +38,7 @@
   "homepage": "https://github.com/SonicGarden/copy-tuner-firebase-functions#readme",
   "dependencies": {
     "axios": "^0.21.1",
-    "firebase-functions": "^3.14.1"
+    "firebase-functions": "^4.0.2"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
