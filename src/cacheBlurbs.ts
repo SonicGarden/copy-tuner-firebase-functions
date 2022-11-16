@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
+import { getStorage } from 'firebase-admin/storage';
 import { tmpdir } from 'os';
 import { writeFile } from 'fs/promises';
-import { Storage } from '@google-cloud/storage';
 import { fetchBlurbs } from './fetchBlurbs';
 
 export const cacheBlurbs = async (data: {
@@ -15,7 +15,7 @@ export const cacheBlurbs = async (data: {
   } = functions.config();
   const cacheFile = `${tmpdir()}/${locale}.json`;
   const { blurbs } = await fetchBlurbs({ locale });
-  const storage = new Storage();
+  const storage = getStorage();
   const destination =
     environment === 'staging'
       ? `${cacheFolder}/draft/${locale}`
