@@ -8,6 +8,8 @@ CopyTuner Helpers for Firebase Cloud Functions
 yarn add @sonicgarden/copy-tuner-firebase-functions
 ```
 
+If you installed firebase-functions older than 4.0.0, you must install older than 2.0.0.
+
 # Usage
 
 Set environment configuration:
