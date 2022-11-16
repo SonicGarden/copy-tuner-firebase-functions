@@ -1,5 +1,5 @@
+import { getStorage } from 'firebase-admin/storage';
 import * as functions from 'firebase-functions';
-import { Storage } from '@google-cloud/storage';
 import type { CopyTunerBlurbsByLocale } from './types';
 
 export const fetchCacheBlurbs = async ({
@@ -14,7 +14,7 @@ export const fetchCacheBlurbs = async ({
   const {
     copy_tuner: { environment },
   } = functions.config();
-  const storage = new Storage();
+  const storage = getStorage();
   const fileName =
     environment === 'staging'
       ? `${cacheFolder}/draft/${locale}`
