@@ -33,12 +33,12 @@ firebase functions:config:set copy_tuner.api_key="xxx"
 firebase functions:config:set copy_tuner.locales="ja, en"
 ```
 
-When fetching from the cloud storage cache
+When fetching directly from the s3 server
 
 1. Create functions in functions/index.js:
 
 ```
-import { getCopyTunerProps, cacheCopyTunerBlurbs } from '@sonicgarden/copy-tuner-firebase-functions';
+import { getCopyTunerProps } from '@sonicgarden/copy-tuner-firebase-functions';
 ```
 
 2. Fetch blurbs
@@ -47,26 +47,24 @@ import { getCopyTunerProps, cacheCopyTunerBlurbs } from '@sonicgarden/copy-tuner
 import { getFunctions, httpsCallable } from 'firebase/functions';
 const getCopyTunerProps = httpsCallable(getFunctions(), 'getCopyTunerProps');
 
-const { locale, blurbs, url } = getCopyTunerProps('ja');
+const { locale, blurbs, url } = getCopyTunerProps({ locale: 'ja' });
 ```
 
 or
 
-When fetching directly from the s3 server
+When fetching from the cloud storage cache
 
 1. Create functions in functions/index.js:
 
 ```
-import { getCopyTunerUrl, fetchCopyTunerBlurbs } from '@sonicgarden/copy-tuner-firebase-functions';
+import { getCopyTunerCacheProps, cacheCopyTunerBlurbs } from '@sonicgarden/copy-tuner-firebase-functions';
 ```
 
 2. Fetch blurbs
 
 ```
 import { getFunctions, httpsCallable } from 'firebase/functions';
-const getCopyTunerUrl = httpsCallable(getFunctions(), 'getCopyTunerUrl');
-const fetchCopyTunerBlurbs = httpsCallable(getFunctions(), 'fetchCopyTunerBlurbs');
+const getCopyTunerCacheProps = httpsCallable(getFunctions(), 'getCopyTunerCacheProps');
 
-const { url } = getCopyTunerUrl();
-const { blurbs } = fetchCopyTunerBlurbs('ja');
+const { locale, blurbs, url } = getCopyTunerCacheProps({ locale: 'ja' });
 ```
