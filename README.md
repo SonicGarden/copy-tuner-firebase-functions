@@ -37,13 +37,13 @@ Create functions and fetch blurbs:
 
 - When fetching directly from the s3 server
 
-  1. Create functions in functions/index.js
+  - Create functions in functions/index.js
 
   ```
   import { getCopyTunerProps } from '@sonicgarden/copy-tuner-firebase-functions';
   ```
 
-  2. Fetch blurbs
+  - Fetch blurbs
 
   ```
   import { getFunctions, httpsCallable } from 'firebase/functions';
@@ -52,15 +52,17 @@ Create functions and fetch blurbs:
   const { locale, blurbs, url } = getCopyTunerProps({ locale: 'ja' });
   ```
 
+  or
+
 - When fetching from the cloud storage cache
 
-  1. Create functions in functions/index.js
+  - Create functions in functions/index.js
 
   ```
   import { getCopyTunerCacheProps, cacheCopyTunerBlurbs } from '@sonicgarden/copy-tuner-firebase-functions';
   ```
 
-  2. Fetch blurbs
+  - Fetch blurbs
 
   ```
   import { getFunctions, httpsCallable } from 'firebase/functions';
