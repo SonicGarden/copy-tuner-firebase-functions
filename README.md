@@ -33,34 +33,40 @@ firebase functions:config:set copy_tuner.api_key="xxx"
 firebase functions:config:set copy_tuner.locales="ja, en"
 ```
 
-Create functions in functions/index.js:
+When fetching from the cloud storage cache
 
-When fetching directly from the s3 server
+1. Create functions in functions/index.js:
 
 ```
-import * as copyTuner from '@sonicgarden/copy-tuner-firebase-functions';
+import { getCopyTunerProps, cacheCopyTunerBlurbs } from '@sonicgarden/copy-tuner-firebase-functions';
+```
 
-export getCopyTunerUrl = copyTuner.getCopyTunerUrl({
-  region: 'asia-northeast1'
-});
-export fetchCopyTunerBlurbs = copyTuner.fetchCopyTunerBlurbs({
-  region: 'asia-northeast1'
-});
+2. Fetch blurbs
+
+```
+import { getFunctions, httpsCallable } from 'firebase/functions';
+const getCopyTunerProps = httpsCallable(getFunctions(), 'getCopyTunerProps');
+
+const { locale, blurbs, url } = getCopyTunerProps('ja');
 ```
 
 or
 
-When fetching from the cloud storage cache
+When fetching directly from the s3 server
+
+1. Create functions in functions/index.js:
 
 ```
-import * as copyTuner from '@sonicgarden/copy-tuner-firebase-functions';
+import { getCopyTunerUrl, fetchCopyTunerBlurbs } from '@sonicgarden/copy-tuner-firebase-functions';
+```
 
-export getCopyTunerUrl = copyTuner.getCopyTunerUrl({
-  region: 'asia-northeast1'
-});
-export cacheCopyTunerBlurbs = copyTuner.cacheCopyTunerBlurbs({
-  region: 'asia-northeast1',
-  schedule: '0 0 * * *',
-  timeZone: 'Asia/Tokyo'
-});
+2. Fetch blurbs
+
+```
+import { getFunctions, httpsCallable } from 'firebase/functions';
+const getCopyTunerUrl = httpsCallable(getFunctions(), 'getCopyTunerUrl');
+const fetchCopyTunerBlurbs = httpsCallable(getFunctions(), 'fetchCopyTunerBlurbs');
+
+const { url } = getCopyTunerUrl();
+const { blurbs } = fetchCopyTunerBlurbs('ja');
 ```
