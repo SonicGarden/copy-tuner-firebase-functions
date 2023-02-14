@@ -37,34 +37,34 @@ Create functions and fetch blurbs:
 
 - When fetching directly from the s3 server
 
-1. Create functions in functions/index.js
+  1. Create functions in functions/index.js
 
-```
-import { getCopyTunerProps } from '@sonicgarden/copy-tuner-firebase-functions';
-```
+  ```
+  import { getCopyTunerProps } from '@sonicgarden/copy-tuner-firebase-functions';
+  ```
 
-2. Fetch blurbs
+  2. Fetch blurbs
 
-```
-import { getFunctions, httpsCallable } from 'firebase/functions';
-const getCopyTunerProps = httpsCallable(getFunctions(), 'getCopyTunerProps');
+  ```
+  import { getFunctions, httpsCallable } from 'firebase/functions';
+  const getCopyTunerProps = httpsCallable(getFunctions(), 'getCopyTunerProps');
 
-const { locale, blurbs, url } = getCopyTunerProps({ locale: 'ja' });
+  const { locale, blurbs, url } = getCopyTunerProps({ locale: 'ja' });
 ```
 
 - When fetching from the cloud storage cache
 
-1. Create functions in functions/index.js
+  1. Create functions in functions/index.js
 
-```
-import { getCopyTunerCacheProps, cacheCopyTunerBlurbs } from '@sonicgarden/copy-tuner-firebase-functions';
-```
+  ```
+  import { getCopyTunerCacheProps, cacheCopyTunerBlurbs } from '@sonicgarden/copy-tuner-firebase-functions';
+  ```
 
-2. Fetch blurbs
+  2. Fetch blurbs
 
-```
-import { getFunctions, httpsCallable } from 'firebase/functions';
-const getCopyTunerCacheProps = httpsCallable(getFunctions(), 'getCopyTunerCacheProps');
+  ```
+  import { getFunctions, httpsCallable } from 'firebase/functions';
+  const getCopyTunerCacheProps = httpsCallable(getFunctions(), 'getCopyTunerCacheProps');
 
-const { locale, blurbs, url } = getCopyTunerCacheProps({ locale: 'ja' });
-```
+  const { locale, blurbs, url } = getCopyTunerCacheProps({ locale: 'ja' });
+  ```
