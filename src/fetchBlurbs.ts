@@ -1,14 +1,15 @@
-import * as functions from 'firebase-functions';
 import { fetchPublishedBlurbs, fetchDraftBlurbs } from './lib/copyTuner';
-import { CopyTunerBlurbs, CopyTunerBlurbsByLocale } from './types';
+import { functions } from './lib/firebase';
+import { env } from './lib/env';
+import type { CopyTunerBlurbs, CopyTunerBlurbsByLocale } from './types';
 
 export const fetchBlurbs = async (data: {
   locale?: string;
 }): Promise<{ blurbs: CopyTunerBlurbs | CopyTunerBlurbsByLocale }> => {
   const { locale } = data;
-  const {
-    copy_tuner: { s3_host: host, api_key: apiKey, environment },
-  } = functions.config();
+  const environment = env('ENVIRONMENT');
+  const host = env('S3_HOST');
+  const apiKey = env('API_KEY');
   const blurbs =
     environment === 'staging'
       ? await fetchDraftBlurbs({ host, apiKey, locale })
@@ -17,6 +18,6 @@ export const fetchBlurbs = async (data: {
   return { blurbs };
 };
 
-export const fetchCopyTunerBlurbs = functions.region('asia-northeast1').https.onCall(async (data) => {
+export const fetchCopyTunerBlurbs = functions().https.onCall(async (data) => {
   return await fetchBlurbs(data);
 });

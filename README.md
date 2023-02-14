@@ -16,47 +16,57 @@ Set environment configuration:
 
 ```
 firebase functions:config:set copy_tuner.environment="staging"
+firebase functions:config:set copy_tuner.region="asia-northeast1"
 firebase functions:config:set copy_tuner.host="xxx"
 firebase functions:config:set copy_tuner.s3_host="xxx"
 firebase functions:config:set copy_tuner.api_key="xxx"
+firebase functions:config:set copy_tuner.locales="ja, en"
 ```
 
 - production　(Don't set copy_tuner.host)
 
 ```
 firebase functions:config:set copy_tuner.environment="production"
+firebase functions:config:set copy_tuner.region="asia-northeast1"
 firebase functions:config:set copy_tuner.s3_host="xxx"
 firebase functions:config:set copy_tuner.api_key="xxx"
+firebase functions:config:set copy_tuner.locales="ja, en"
 ```
 
-Create functions in functions/index.js:
+When fetching from the cloud storage cache
 
-When deploying to region asia-northeast1
+1. Create functions in functions/index.js:
 
 ```
-export * from '@sonicgarden/copy-tuner-firebase-functions';
+import { getCopyTunerProps, cacheCopyTunerBlurbs } from '@sonicgarden/copy-tuner-firebase-functions';
+```
+
+2. Fetch blurbs
+
+```
+import { getFunctions, httpsCallable } from 'firebase/functions';
+const getCopyTunerProps = httpsCallable(getFunctions(), 'getCopyTunerProps');
+
+const { locale, blurbs, url } = getCopyTunerProps('ja');
 ```
 
 or
 
-When custom deploying
+When fetching directly from the s3 server
+
+1. Create functions in functions/index.js:
 
 ```
-export const fetchCopyTunerBlurbs = functions.https.onCall(async (data) => {
-  const { fetchCopyTunerBlurbs } = await import('@sonicgarden/copy-tuner-firebase-functions/core');
-  return await fetchCopyTunerBlurbs(data);
-});
-
-export const getCopyTunerUrl = functions.https.onCall(async () => {
-  const { getCopyTunerUrl } = await import('@sonicgarden/copy-tuner-firebase-functions/core');
-  return await getCopyTunerUrl();
-});
+import { getCopyTunerUrl, fetchCopyTunerBlurbs } from '@sonicgarden/copy-tuner-firebase-functions';
 ```
 
-Fetch blurbs:
+2. Fetch blurbs
 
 ```
-const fetchCopyTunerBlurbs = firebase.functions().httpsCallable('fetchCopyTunerBlurbs');
+import { getFunctions, httpsCallable } from 'firebase/functions';
+const getCopyTunerUrl = httpsCallable(getFunctions(), 'getCopyTunerUrl');
+const fetchCopyTunerBlurbs = httpsCallable(getFunctions(), 'fetchCopyTunerBlurbs');
 
-fetchCopyTunerBlurbs({ locale: 'ja' }).then(({ data: { blurbs } }) => console.log(blurbs));
+const { url } = getCopyTunerUrl();
+const { blurbs } = fetchCopyTunerBlurbs('ja');
 ```
