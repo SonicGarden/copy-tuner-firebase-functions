@@ -54,7 +54,7 @@ import * as copyTuner from '@sonicgarden/copy-tuner-firebase-functions';
 export getCopyTunerUrl = copyTuner.getCopyTunerUrl({
   region: 'asia-northeast1'
 });
-export cacheCopyTunerBlurbs = copyTuner.cacheopyTunerBlurbs({
+export cacheCopyTunerBlurbs = copyTuner.cacheCopyTunerBlurbs({
   region: 'asia-northeast1',
   schedule: '0 0 * * *',
   timeZone: 'Asia/Tokyo'
