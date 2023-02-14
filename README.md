@@ -35,7 +35,7 @@ firebase functions:config:set copy_tuner.locales="ja, en"
 
 Create functions and fetch blurbs:
 
-When fetching directly from the s3 server:
+- When fetching directly from the s3 server
 
 1. Create functions in functions/index.js
 
@@ -52,9 +52,7 @@ const getCopyTunerProps = httpsCallable(getFunctions(), 'getCopyTunerProps');
 const { locale, blurbs, url } = getCopyTunerProps({ locale: 'ja' });
 ```
 
-or
-
-When fetching from the cloud storage cache
+- When fetching from the cloud storage cache
 
 1. Create functions in functions/index.js
 
