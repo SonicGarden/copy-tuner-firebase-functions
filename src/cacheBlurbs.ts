@@ -28,7 +28,6 @@ export const cacheBlurbs = async (data: {
 // TODO: 設定ファイルで変更できるようにする
 const schedule = 'every 10 minutes';
 const timeZone = 'Asia/Tokyo';
-const locales = ['ja'];
 const cacheBucketName = `${JSON.parse(process.env.FIREBASE_CONFIG).storageBucket}`;
 const cacheFolder = 'copy-tuner';
 
@@ -37,6 +36,7 @@ export const cacheCopyTunerBlurbs = functions()
   .timeZone(timeZone)
   .onRun(async () => {
     try {
+      const locales = env('LOCALES');
       await Promise.all(
         locales.map((locale) => cacheBlurbs({ locale, cacheBucketName, cacheFolder }))
       );

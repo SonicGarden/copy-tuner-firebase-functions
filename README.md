@@ -20,6 +20,7 @@ firebase functions:config:set copy_tuner.region="asia-northeast1"
 firebase functions:config:set copy_tuner.host="xxx"
 firebase functions:config:set copy_tuner.s3_host="xxx"
 firebase functions:config:set copy_tuner.api_key="xxx"
+firebase functions:config:set copy_tuner.locales="ja, en"
 ```
 
 - production　(Don't set copy_tuner.host)
@@ -29,6 +30,7 @@ firebase functions:config:set copy_tuner.environment="production"
 firebase functions:config:set copy_tuner.region="asia-northeast1"
 firebase functions:config:set copy_tuner.s3_host="xxx"
 firebase functions:config:set copy_tuner.api_key="xxx"
+firebase functions:config:set copy_tuner.locales="ja, en"
 ```
 
 Create functions in functions/index.js:
