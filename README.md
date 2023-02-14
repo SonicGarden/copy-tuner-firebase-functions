@@ -50,7 +50,7 @@ Create functions and fetch blurbs:
   const getCopyTunerProps = httpsCallable(getFunctions(), 'getCopyTunerProps');
 
   const { locale, blurbs, url } = getCopyTunerProps({ locale: 'ja' });
-```
+  ```
 
 - When fetching from the cloud storage cache
 
