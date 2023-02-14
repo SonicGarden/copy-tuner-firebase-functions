@@ -33,9 +33,11 @@ firebase functions:config:set copy_tuner.api_key="xxx"
 firebase functions:config:set copy_tuner.locales="ja, en"
 ```
 
-When fetching directly from the s3 server
+Create functions and fetch blurbs:
 
-1. Create functions in functions/index.js:
+When fetching directly from the s3 server:
+
+1. Create functions in functions/index.js
 
 ```
 import { getCopyTunerProps } from '@sonicgarden/copy-tuner-firebase-functions';
@@ -54,7 +56,7 @@ or
 
 When fetching from the cloud storage cache
 
-1. Create functions in functions/index.js:
+1. Create functions in functions/index.js
 
 ```
 import { getCopyTunerCacheProps, cacheCopyTunerBlurbs } from '@sonicgarden/copy-tuner-firebase-functions';
