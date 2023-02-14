@@ -1,7 +1,8 @@
-import * as functions from 'firebase-functions';
 import { tmpdir } from 'os';
 import { writeFile } from 'fs/promises';
 import { Storage } from '@google-cloud/storage';
+import { env } from './lib/env';
+import { functions } from './lib/firebase';
 import { fetchBlurbs } from './fetchBlurbs';
 
 export const cacheBlurbs = async (data: {
@@ -10,9 +11,7 @@ export const cacheBlurbs = async (data: {
   cacheFolder: string;
 }): Promise<boolean> => {
   const { locale, cacheBucketName, cacheFolder } = data;
-  const {
-    copy_tuner: { environment },
-  } = functions.config();
+  const environment = env('ENVIRONMENT');
   const cacheFile = `${tmpdir()}/${locale}.json`;
   const { blurbs } = await fetchBlurbs({ locale });
   const storage = new Storage();
@@ -27,15 +26,13 @@ export const cacheBlurbs = async (data: {
 };
 
 // TODO: 設定ファイルで変更できるようにする
-const region = 'asia-northeast1';
 const schedule = 'every 10 minutes';
 const timeZone = 'Asia/Tokyo';
 const locales = ['ja'];
 const cacheBucketName = `${JSON.parse(process.env.FIREBASE_CONFIG).storageBucket}`;
 const cacheFolder = 'copy-tuner';
 
-export const cacheCopyTunerBlurbs = functions
-  .region(region)
+export const cacheCopyTunerBlurbs = functions()
   .pubsub.schedule(schedule)
   .timeZone(timeZone)
   .onRun(async () => {
